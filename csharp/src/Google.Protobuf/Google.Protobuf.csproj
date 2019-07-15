@@ -1,42 +1,130 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Description>C# runtime library for Protocol Buffers - Google's data interchange format.</Description>
-    <Copyright>Copyright 2015, Google Inc.</Copyright>
-    <AssemblyTitle>Google Protocol Buffers</AssemblyTitle>
-    <VersionPrefix>3.7.0</VersionPrefix>
-    <LangVersion>6</LangVersion>
-    <Authors>Google Inc.</Authors>
-    <TargetFrameworks>netstandard1.0;netstandard2.0;net45</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyOriginatorKeyFile>../../keys/Google.Protobuf.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <PackageTags>Protocol;Buffers;Binary;Serialization;Format;Google;proto;proto3</PackageTags>
-    <PackageReleaseNotes>C# proto3 support</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/protocolbuffers/protobuf</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/protocolbuffers/protobuf/blob/master/LICENSE</PackageLicenseUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/protocolbuffers/protobuf.git</RepositoryUrl>
-    <!-- Include PDB in the built .nupkg -->
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3792E0D6-E84A-4817-8961-EDE2783B36E6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Google.Protobuf</RootNamespace>
+    <AssemblyName>Google.Protobuf</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-
-  <!--
-    - Override target frameworks on non-Windows to just .NET Core
-    - Doing this conditionally in the initial PropertyGroup confuses
-    - Visual Studio.
-    -->
-  <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
-    <TargetFrameworks>netstandard1.0;netstandard2.0</TargetFrameworks>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Memory" Version="4.5.2" />
-  </ItemGroup>
-
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>NET35</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="All" />
+    <Compile Include="ByteArray.cs" />
+    <Compile Include="ByteString.cs" />
+    <Compile Include="CodedInputStream.cs" />
+    <Compile Include="CodedOutputStream.ComputeSize.cs" />
+    <Compile Include="CodedOutputStream.cs" />
+    <Compile Include="Collections\Lists.cs" />
+    <Compile Include="Collections\MapField.cs" />
+    <Compile Include="Collections\ProtobufEqualityComparers.cs" />
+    <Compile Include="Collections\RepeatedField.cs" />
+    <Compile Include="FieldCodec.cs" />
+    <Compile Include="FieldMaskTree.cs" />
+    <Compile Include="FrameworkPortability.cs" />
+    <Compile Include="ICustomDiagnosticMessage.cs" />
+    <Compile Include="IDeepCloneable.cs" />
+    <Compile Include="IMessage.cs" />
+    <Compile Include="InvalidJsonException.cs" />
+    <Compile Include="InvalidProtocolBufferException.cs" />
+    <Compile Include="JsonFormatter.cs" />
+    <Compile Include="JsonParser.cs" />
+    <Compile Include="JsonToken.cs" />
+    <Compile Include="JsonTokenizer.cs" />
+    <Compile Include="LimitedInputStream.cs" />
+    <Compile Include="MessageExtensions.cs" />
+    <Compile Include="MessageParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtoPreconditions.cs" />
+    <Compile Include="Reflection\CustomOptions.cs" />
+    <Compile Include="Reflection\Descriptor.cs" />
+    <Compile Include="Reflection\DescriptorBase.cs" />
+    <Compile Include="Reflection\DescriptorDeclaration.cs" />
+    <Compile Include="Reflection\DescriptorPool.cs" />
+    <Compile Include="Reflection\DescriptorUtil.cs" />
+    <Compile Include="Reflection\DescriptorValidationException.cs" />
+    <Compile Include="Reflection\EnumDescriptor.cs" />
+    <Compile Include="Reflection\EnumValueDescriptor.cs" />
+    <Compile Include="Reflection\FieldAccessorBase.cs" />
+    <Compile Include="Reflection\FieldDescriptor.cs" />
+    <Compile Include="Reflection\FieldType.cs" />
+    <Compile Include="Reflection\FileDescriptor.cs" />
+    <Compile Include="Reflection\GeneratedClrTypeInfo.cs" />
+    <Compile Include="Reflection\IDescriptor.cs" />
+    <Compile Include="Reflection\IFieldAccessor.cs" />
+    <Compile Include="Reflection\MapFieldAccessor.cs" />
+    <Compile Include="Reflection\MessageDescriptor.cs" />
+    <Compile Include="Reflection\MethodDescriptor.cs" />
+    <Compile Include="Reflection\OneofAccessor.cs" />
+    <Compile Include="Reflection\OneofDescriptor.cs" />
+    <Compile Include="Reflection\OriginalNameAttribute.cs" />
+    <Compile Include="Reflection\PackageDescriptor.cs" />
+    <Compile Include="Reflection\ReflectionUtil.cs" />
+    <Compile Include="Reflection\RepeatedFieldAccessor.cs" />
+    <Compile Include="Reflection\ServiceDescriptor.cs" />
+    <Compile Include="Reflection\SingleFieldAccessor.cs" />
+    <Compile Include="Reflection\TypeRegistry.cs" />
+    <Compile Include="UnknownField.cs" />
+    <Compile Include="UnknownFieldSet.cs" />
+    <Compile Include="WellKnownTypes\Any.cs" />
+    <Compile Include="WellKnownTypes\AnyPartial.cs" />
+    <Compile Include="WellKnownTypes\Api.cs" />
+    <Compile Include="WellKnownTypes\Duration.cs" />
+    <Compile Include="WellKnownTypes\DurationPartial.cs" />
+    <Compile Include="WellKnownTypes\Empty.cs" />
+    <Compile Include="WellKnownTypes\FieldMask.cs" />
+    <Compile Include="WellKnownTypes\FieldMaskPartial.cs" />
+    <Compile Include="WellKnownTypes\SourceContext.cs" />
+    <Compile Include="WellKnownTypes\Struct.cs" />
+    <Compile Include="WellKnownTypes\TimeExtensions.cs" />
+    <Compile Include="WellKnownTypes\Timestamp.cs" />
+    <Compile Include="WellKnownTypes\TimestampPartial.cs" />
+    <Compile Include="WellKnownTypes\Type.cs" />
+    <Compile Include="WellKnownTypes\ValuePartial.cs" />
+    <Compile Include="WellKnownTypes\Wrappers.cs" />
+    <Compile Include="WellKnownTypes\WrappersPartial.cs" />
+    <Compile Include="WireFormat.cs" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Theraot.Core, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b1460dff8a28f7a7">
+      <HintPath>$(SolutionDir)\packages\Theraot.Core.3.0.2\lib\net35\Theraot.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
 </Project>

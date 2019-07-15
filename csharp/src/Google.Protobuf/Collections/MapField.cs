@@ -29,8 +29,6 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
-
-using Google.Protobuf.Compatibility;
 using Google.Protobuf.Reflection;
 using System;
 using System.Collections;
@@ -67,9 +65,6 @@ namespace Google.Protobuf.Collections
     /// </para>
     /// </remarks>
     public sealed class MapField<TKey, TValue> : IDeepCloneable<MapField<TKey, TValue>>, IDictionary<TKey, TValue>, IEquatable<MapField<TKey, TValue>>, IDictionary
-#if !NET35
-        , IReadOnlyDictionary<TKey, TValue>
-#endif
     {
         private static readonly EqualityComparer<TValue> ValueEqualityComparer = ProtobufEqualityComparers.GetEqualityComparer<TValue>();
         private static readonly EqualityComparer<TKey> KeyEqualityComparer = ProtobufEqualityComparers.GetEqualityComparer<TKey>();
@@ -549,14 +544,6 @@ namespace Google.Protobuf.Collections
                 this[(TKey)key] = (TValue)value;
             }
         }
-        #endregion
-
-        #region IReadOnlyDictionary explicit interface implementation
-#if !NET35
-        IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => Keys;
-
-        IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => Values;
-#endif
         #endregion
 
         private class DictionaryEnumerator : IDictionaryEnumerator

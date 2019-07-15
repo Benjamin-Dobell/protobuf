@@ -103,7 +103,7 @@ namespace Google.Protobuf.Reflection
             EndColumn = location.Span[hasEndLine ? 3 : 2] + 1;
             LeadingComments = location.LeadingComments;
             TrailingComments = location.TrailingComments;
-            LeadingDetachedComments = new ReadOnlyCollection<string>(location.LeadingDetachedComments.ToList());
+            LeadingDetachedComments = (IReadOnlyList<string>) new ReadOnlyCollection<string>(location.LeadingDetachedComments.ToList());
         }
 
         internal static DescriptorDeclaration FromProto(IDescriptor descriptor, Location location) =>

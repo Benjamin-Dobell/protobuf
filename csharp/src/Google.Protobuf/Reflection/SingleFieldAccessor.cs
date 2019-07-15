@@ -32,7 +32,6 @@
 
 using System;
 using System.Reflection;
-using Google.Protobuf.Compatibility;
 
 namespace Google.Protobuf.Reflection
 {
@@ -59,7 +58,7 @@ namespace Google.Protobuf.Reflection
             setValueDelegate = ReflectionUtil.CreateActionIMessageObject(property.GetSetMethod());
             if (descriptor.File.Proto.Syntax == "proto2")
             {
-                MethodInfo hasMethod = property.DeclaringType.GetRuntimeProperty("Has" + property.Name).GetMethod;
+                MethodInfo hasMethod = property.DeclaringType.GetRuntimeProperty("Has" + property.Name).GetGetMethod();
                 if (hasMethod == null) {
                   throw new ArgumentException("Not all required properties/methods are available");
                 }

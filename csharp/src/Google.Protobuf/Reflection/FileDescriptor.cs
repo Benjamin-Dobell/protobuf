@@ -435,7 +435,7 @@ namespace Google.Protobuf.Reflection
                 }
                 descriptorsByName.Add(descriptor.Name, descriptor);
             }
-            return new ReadOnlyCollection<FileDescriptor>(descriptors);
+            return (IReadOnlyList<FileDescriptor>) new ReadOnlyCollection<FileDescriptor>(descriptors);
         }
 
         /// <summary>
